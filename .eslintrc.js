@@ -15,11 +15,7 @@ module.exports = {
         ecmaVersion: 2022,
     },
     rules: {
-        curly: [
-            'error',
-            'multi-or-nest',
-            'consistent',
-        ],
+        curly                            : ['error', 'multi-or-nest', 'consistent'],
         'object-curly-spacing'           : ['error', 'always'],
         'space-before-function-paren'    : ['error', 'never'],
         'padding-line-between-statements': [
@@ -63,22 +59,23 @@ module.exports = {
             exports  : 'never',
             functions: 'never',
         }],
-        complexity                 : ['warn', 10],
-        'no-param-reassign'        : ['error', { props: false }],
-        'prefer-arrow-callback'    : 'warn',
-        'no-case-declarations'     : 'error',
-        'max-lines-per-function'   : ['error', { max: 25, skipComments: true, skipBlankLines: true }],
-        'object-shorthand'         : ['error', 'always'],
-        'arrow-body-style'         : ['warn', 'as-needed'],
-        'newline-per-chained-call' : ['warn', { ignoreChainWithDepth: 2 }],
-        'func-name-matching'       : ['warn', { considerPropertyDescriptor: true }],
+        complexity                            : ['warn', 10],
+        'no-param-reassign'                   : ['error', { props: false }],
+        'prefer-arrow-callback'               : 'warn',
+        'no-case-declarations'                : 'error',
+        'max-lines-per-function'              : ['error', { max: 25, skipComments: true, skipBlankLines: true }],
+        'object-shorthand'                    : ['error', 'always'],
+        'arrow-body-style'                    : ['warn', 'as-needed'],
+        'newline-per-chained-call'            : ['warn', { ignoreChainWithDepth: 2 }],
+        'func-name-matching'                  : ['warn', { considerPropertyDescriptor: true }],
         //------------------------------------------------------------------------------
         // Vue rules
         //------------------------------------------------------------------------------
-        'vue/html-indent'          : ['warn', 4],
-        'vue/script-indent'        : ['warn', 4],
-        'vue/attribute-hyphenation': ['warn', 'never'],
-        'vue/max-len'              : ['error', {
+        'vue/html-indent'                     : ['warn', 4],
+        'vue/script-indent'                   : ['warn', 4],
+        'vue/attribute-hyphenation'           : ['warn', 'never'],
+        'vue/component-definition-name-casing': ['error', 'kebab-case'],
+        'vue/max-len'                         : ['error', {
             code                  : 120,
             template              : 140,
             ignorePattern         : '',
@@ -114,17 +111,7 @@ module.exports = {
                     position: 'after',
                 },
                 {
-                    pattern : '@directives/**',
-                    group   : 'internal',
-                    position: 'after',
-                },
-                {
                     pattern : '@/mixins/**',
-                    group   : 'internal',
-                    position: 'after',
-                },
-                {
-                    pattern : '@/containers/**',
                     group   : 'internal',
                     position: 'after',
                 },
@@ -140,8 +127,5 @@ module.exports = {
                 },
             ],
         }],
-        'promise/always-return'               : 0,
-        'promise/catch-or-return'             : ['error', { allowFinally: true }],
-        'vue/component-definition-name-casing': ['error', 'kebab-case'],
     },
 };
