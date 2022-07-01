@@ -1,7 +1,7 @@
 <template>
     <main class="flex flex-col min-h-screen dark:bg-dark-400">
         <b-header />
-        <router-view />
+        <router-view class="px-5 pb-5" />
     </main>
 </template>
 
