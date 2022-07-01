@@ -2,8 +2,8 @@ module.exports = {
     root: true,
     env : {
         browser: true,
-        es2022 : true,
         node   : true,
+        es2022 : true,
     },
     extends: [
         'plugin:vue/vue3-recommended',
@@ -83,13 +83,16 @@ module.exports = {
             ignoreTrailingComments: false,
             ignoreUrls            : true,
         }],
-        'vue/max-attributes-per-line': ['error', {
-            singleline: 2,
-            multiline : 1,
-        }],
+        'vue/max-attributes-per-line'      : ['error', { singleline: 2, multiline: 1 }],
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         'import/newline-after-import'      : ['error', { count: 1 }],
-        'import/order'                     : ['warn', {
+        'import/extensions'                : ['error', 'ignorePackages', {
+            vue : 'never',
+            ts  : 'never',
+            js  : 'never',
+            json: 'never',
+        }],
+        'import/order': ['warn', {
             alphabetize: { order: 'asc' },
             groups     : ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
             pathGroups : [
