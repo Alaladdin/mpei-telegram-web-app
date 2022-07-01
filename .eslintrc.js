@@ -83,7 +83,7 @@ module.exports = {
             ignoreTrailingComments: false,
             ignoreUrls            : true,
         }],
-        'vue/max-attributes-per-line'      : ['error', { singleline: 2, multiline: 1 }],
+        'vue/max-attributes-per-line'      : ['error', { singleline: 3, multiline: 1 }],
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         'import/newline-after-import'      : ['error', { count: 1 }],
         'import/extensions'                : ['error', 'ignorePackages', {

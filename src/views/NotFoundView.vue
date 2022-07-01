@@ -1,14 +1,14 @@
 <template>
-    <div>
-        home-view
-    </div>
+    <main>
+        not-found-view
+    </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name      : 'home-view',
+    name      : 'not-found-view',
     components: {},
 });
 </script>
