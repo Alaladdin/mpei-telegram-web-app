@@ -7,9 +7,7 @@
     "build-only": "vite build",
     "dev": "vite",
     "preview": "vite preview --port 4173",
-    "type-check": "vue-tsc --noEmit",
-    "deploy:setup": "pm2 deploy production setup",
-    "deploy:prod": "pm2 deploy ecosystem.config.js production --force"
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^4.5.9",
@@ -18,7 +16,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "axios": "^0.27.2",
-    "dotenv": "^16.0.1",
     "element-plus": "^2.2.6",
     "lodash": "^4.17.21",
     "pinia": "^2.0.14",
