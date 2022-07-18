@@ -1,17 +1,24 @@
 <template>
-    <header class="flex justify-between items-center px-5 py-3 mb-5 shadow-md w-full dark:bg-dark-300">
-        <div>WINX SYSTEMS</div>
+    <el-header class="flex justify-between items-center">
+        <b-menu-toggler />
+
+        <router-link to="/">
+            WINX SYSTEMS
+        </router-link>
+
         <b-theme-toggler />
-    </header>
+    </el-header>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent } from 'vue';
+import MenuToggler from '@/components/b-menu-toggler.vue';
 import ThemeToggler from '@/components/b-theme-toggler.vue';
 
 export default defineComponent({
     name      : 'b-header',
     components: {
+        'b-menu-toggler' : MenuToggler,
         'b-theme-toggler': ThemeToggler,
     },
 });

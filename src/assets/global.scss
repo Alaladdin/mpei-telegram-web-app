@@ -2,6 +2,14 @@
 @import '@fontsource/jetbrains-mono/400.css';
 
 html, body {
-  min-height: 100vh;
   font-family: JetBrains Mono, sans-serif;
+  @apply min-h-screen h-full text-dark-800 dark:text-light-800;
+}
+
+#app {
+  @apply h-full;
+}
+
+main {
+  height: calc(100% - 56px);
 }

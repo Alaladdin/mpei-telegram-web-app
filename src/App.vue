@@ -1,8 +1,11 @@
 <template>
-    <main class="flex flex-col min-h-screen dark:bg-dark-400">
-        <b-header />
-        <router-view class="px-5 pb-5" />
-    </main>
+    <div class="flex flex-col h-full min-h-screen dark:bg-dark-400">
+        <b-header class="mb-10" />
+
+        <main class="container mx-auto">
+            <router-view />
+        </main>
+    </div>
 </template>
 
 <script lang="ts">

@@ -5,6 +5,9 @@ module.exports = {
         node   : true,
         es2022 : true,
     },
+    globals: {
+        $axios: true,
+    },
     extends: [
         'plugin:vue/vue3-recommended',
         'eslint:recommended',
@@ -27,10 +30,11 @@ module.exports = {
             { blankLine: 'always', prev: '*', next: ['if', 'case', 'default'] },
             { blankLine: 'any', prev: ['if', 'case', 'default'], next: ['if', 'case', 'default'] },
         ],
-        'max-params'        : ['warn', 4],
-        indent              : ['warn', 4],
-        semi                : ['error', 'always'],
-        'operator-linebreak': [2, 'after', {
+        'max-params'               : ['warn', 4],
+        '@typescript-eslint/indent': ['warn', 4],
+        indent                     : ['warn', 4],
+        semi                       : ['error', 'always'],
+        'operator-linebreak'       : [2, 'after', {
             overrides: {
                 '>' : 'before',
                 '>=': 'before',
@@ -86,6 +90,7 @@ module.exports = {
         'vue/max-attributes-per-line'      : ['error', { singleline: 3, multiline: 1 }],
         'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
         'import/newline-after-import'      : ['error', { count: 1 }],
+        'import/prefer-default-export'     : 0,
         'import/extensions'                : ['error', 'ignorePackages', {
             vue : 'never',
             ts  : 'never',

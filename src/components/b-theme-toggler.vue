@@ -1,17 +1,15 @@
 <template>
-    <el-button circle @click="toggleTheme">
-        <fa :icon="isDarkTheme ? 'fa-solid fa-moon' : 'fa-solid fa-sun'" />
+    <el-button link @click="toggleTheme">
+        <fa :icon="isDarkTheme ? 'fa-moon' : 'fa-sun'" />
     </el-button>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent } from 'vue';
 import { getFromLocalStorage, setToLocalStorage } from '@/helpers';
 
 export default defineComponent({
-    name      : 'b-theme-toggler',
-    components: {
-    },
+    name: 'b-theme-toggler',
     data: () => ({
         isDarkTheme: getFromLocalStorage('isDarkTheme', true),
     }),
