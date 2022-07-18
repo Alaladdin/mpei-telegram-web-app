@@ -44,10 +44,15 @@ export default defineComponent({
     methods: {
         ...mapActions(useActualityStore, ['init']),
 
-        initPage(): void {
+        initPage() {
+            this.isLoading = true;
+
             this.init()
                 .catch(() => {
-                    ElMessage({ message: 'Sections loading error', type: 'error' });
+                    ElMessage({ message: 'Init error', type: 'error' });
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
         },
     },
