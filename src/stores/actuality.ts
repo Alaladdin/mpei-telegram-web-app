@@ -14,7 +14,7 @@ export const useActualityStore = defineStore({
     },
     actions: {
         init(): Promise<ISection[] | AxiosError> {
-            return $axios.$get('/api/getActualitiesSections')
+            return window.$axios.$get('/api/getActualitiesSections')
                 .then(({ sections }: { sections: ISection[] }) => {
                     this.sections = sections;
 
@@ -25,7 +25,7 @@ export const useActualityStore = defineStore({
                 });
         },
         loadActuality(actualityId: string): Promise<IActuality | AxiosError> {
-            return $axios.$get('/api/getActuality', { params: { actualityId } })
+            return window.$axios.$get('/api/getActuality', { params: { actualityId } })
                 .then(({ actuality }: { actuality: IActuality }) => {
                     this.actuality = actuality;
 
