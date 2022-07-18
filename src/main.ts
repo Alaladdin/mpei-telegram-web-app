@@ -16,9 +16,9 @@ import '@/assets/global.scss';
 library.add(fas);
 
 createApp(App)
+    .use(router)
     .component('fa', FontAwesomeIcon)
     .use(createPinia())
-    .use(router)
     .use(ElementPlus)
     .use(axiosPlugin)
     .mount('#app');

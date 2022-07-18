@@ -8,7 +8,6 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name      : 'not-found-view',
-    components: {},
+    name: 'not-found-view',
 });
 </script>
