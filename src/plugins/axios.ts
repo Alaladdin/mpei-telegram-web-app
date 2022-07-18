@@ -28,6 +28,7 @@ export const axiosPlugin: Plugin = {
     install: (app: App) => {
         app.config.globalProperties.$axios = $axios;
 
+        // @ts-ignore
         window.$axios = $axios;
     },
 };
