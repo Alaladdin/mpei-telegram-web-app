@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import ElementPlus from 'element-plus';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
+import { axiosPlugin } from '@/plugins/axios';
 import App from './App.vue';
 import router from './router';
 
@@ -19,4 +20,5 @@ createApp(App)
     .use(createPinia())
     .use(router)
     .use(ElementPlus)
+    .use(axiosPlugin)
     .mount('#app');

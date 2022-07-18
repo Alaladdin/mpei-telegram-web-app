@@ -1,5 +1,5 @@
 <template>
-    <el-header class="flex justify-between items-center">
+    <el-header class="flex justify-between items-center bg-pink-100 dark:bg-dark-600">
         <b-menu-toggler />
 
         <router-link to="/">

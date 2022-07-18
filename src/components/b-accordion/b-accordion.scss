@@ -1,0 +1,23 @@
+.b-accordion {
+  @apply select-none;
+
+  &__item {
+    @apply flex justify-between px-5 py-3 rounded-2xl cursor-pointer;
+    @apply text-pink-800 hover:bg-pink-100;
+    @apply text-pink-900 active:bg-pink-200;
+    @apply dark:(text-inherit hover:bg-dark-100);
+    @apply dark:(text-inherit active:bg-dark-200);
+
+    &--parent {
+      @apply flex justify-between items-center;
+    }
+
+    &--children {
+      @apply ml-2;
+    }
+
+    &.disabled {
+      @apply '!opacity-50 pointer-events-none';
+    }
+  }
+}
