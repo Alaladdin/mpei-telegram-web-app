@@ -16,7 +16,7 @@ export default ({ mode }: { mode:string }) => {
         server: {
             proxy: {
                 '/api': {
-                    target      : 'http://localhost:9000',
+                    target      : env.VITE_API_ADDRESS,
                     changeOrigin: true,
                     headers     : {
                         AuthToken: env.VITE_AUTH_TOKEN || '',
