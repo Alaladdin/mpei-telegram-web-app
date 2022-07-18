@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'url';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig, loadEnv } from 'vite';
+import viteImagemin from 'vite-plugin-imagemin';
 import WindiCSS from 'vite-plugin-windicss';
 
 // eslint-disable-next-line max-lines-per-function
@@ -9,7 +10,14 @@ export default ({ mode }: { mode:string }) => {
     const isDev = mode === 'development';
 
     return defineConfig({
-        plugins: [vue(), WindiCSS()],
+        plugins: [
+            vue(),
+            WindiCSS(),
+            viteImagemin({
+                optipng: { optimizationLevel: 7 },
+                mozjpeg: { quality: 80 },
+            }),
+        ],
         resolve: {
             extensions: ['.ts', '.js', '.json'],
             alias     : {
