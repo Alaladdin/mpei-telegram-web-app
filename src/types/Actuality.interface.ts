@@ -1,5 +1,7 @@
 import type { Nullable } from '@/types/Nullable';
 
+export {};
+
 export interface IActualityUpdatedBy {
     name: string;
     username: string;
