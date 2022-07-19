@@ -6,13 +6,12 @@
 ## Uncomment to use this redirect for Single Page Applications
 ## Not needed for static site generators.
 [[redirects]]
-    from = "/*"
-    to = "/index.html"
-    status = 200
-
-[[redirects]]
     from = '/api/*'
     to = 'https://api.mpei.space/:splat'
     status = 200
     force = true
-    signed = "API_SIGNATURE_TOKEN_PLACEHOLDER"
+
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
