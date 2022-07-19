@@ -1,10 +1,16 @@
 [build]
-    command = "vite build"
+    command = "sed -i \"s|VITE_AUTH_TOKEN|${VITE_AUTH_TOKEN}|g\" netlify.toml && yarn build-only"
     functions = "netlify/functions"
     publish = "dist"
 
 ## Uncomment to use this redirect for Single Page Applications
 ## Not needed for static site generators.
+
+[[headers]]
+    for = "/api/*"
+    [headers.values]
+        AuthToken = "VITE_AUTH_TOKEN"
+
 [[redirects]]
     from = '/api/*'
     to = 'https://api.mpei.space/:splat'
