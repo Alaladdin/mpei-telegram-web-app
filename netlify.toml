@@ -10,6 +10,7 @@
     to = 'https://api.mpei.space/:splat'
     status = 200
     force = true
+    headers = {AuthToken = "VITE_AUTH_TOKEN"}
 
 [[redirects]]
     from = "/*"
