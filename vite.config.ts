@@ -19,7 +19,7 @@ export default ({ mode }: { mode:string }) => {
             }),
         ],
         resolve: {
-            extensions: ['.ts', '.js', '.json'],
+            extensions: ['.vue', '.ts', '.js', '.json'],
             alias     : {
                 '@': fileURLToPath(new URL('./src', import.meta.url)),
             },
