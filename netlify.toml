@@ -12,5 +12,7 @@
 
 [[redirects]]
     from = '/api/*'
-    to = '/.netlify/functions/servers/:splat'
+    to = 'https://api.mpei.space/:splat'
     status = 200
+    force = true
+    signed = "API_SIGNATURE_TOKEN_PLACEHOLDER"
