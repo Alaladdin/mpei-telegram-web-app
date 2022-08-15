@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'url';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig, loadEnv } from 'vite';
 import viteImagemin from 'vite-plugin-imagemin';
+import { VitePWA } from 'vite-plugin-pwa';
 import WindiCSS from 'vite-plugin-windicss';
 
 // eslint-disable-next-line max-lines-per-function
@@ -25,6 +26,8 @@ export default ({ mode }: { mode:string }) => {
             },
         },
         server: {
+            port : +env.VITE_PORT,
+            host : '0.0.0.0',
             proxy: {
                 '/api': {
                     target      : env.VITE_API_ADDRESS,
