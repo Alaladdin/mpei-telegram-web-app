@@ -19,6 +19,7 @@ module.exports = {
     },
     rules: {
         curly                            : ['error', 'multi-or-nest', 'consistent'],
+        'no-underscore-dangle'           : 0,
         'object-curly-spacing'           : ['error', 'always'],
         'space-before-function-paren'    : ['error', 'never'],
         'padding-line-between-statements': [

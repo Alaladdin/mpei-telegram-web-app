@@ -13,3 +13,14 @@ html, body {
 main {
   height: calc(100% - 56px);
 }
+
+.click-area {
+  &:after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: -5px;
+    height: calc(100% + 10px);
+    width: calc(100% + 20px);
+  }
+}

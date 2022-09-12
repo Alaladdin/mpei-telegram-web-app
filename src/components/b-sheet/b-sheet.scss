@@ -1,20 +1,55 @@
 .b-sheet {
-  @apply fixed left-0 right-0 bottom-0;
-  @apply px-10 py-8 rounded-t-6xl h-8/10 shadow-lg w-full bg-dark-600;
-  animation: sheetFadeIn 250ms forwards ease-in-out;
-  will-change: transform;
+  &__container {
+    @apply absolute left-5 right-5 bottom-5;
+    @apply rounded-2xl max-h-7/10 h-full shadow bg-pink-50 dark:bg-dark-400;
+    @apply overflow-hidden will-change-transform;
+    width: calc(100% - 2.5rem);
+  }
+
+  &__overlay {
+    @apply fixed left-0 right-0 bottom-0 top-0;
+    @apply w-full h-full;
+    @apply bg-dark-300 opacity-70;
+  }
 
   &__title {
-    @apply mb-10 text-center
+    @apply flex justify-center items-center py-2;
+    @apply bg-pink-100 dark:bg-dark-600;
+    @apply text-lg font-semibold select-none;
+  }
+
+  &__close-btn {
+    @apply absolute right-5;
+  }
+
+  &__body {
+    @apply px-10 pt-5 pb-5 overflow-auto;
+    height: calc(100% - 2.5rem);
+  }
+
+  &__no-data {
+    @apply flex justify-center items-center h-full w-full text-xl;
   }
 }
 
-@keyframes sheetFadeIn {
-  from {
-    transform: translateY(100%);
-  }
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 200ms ease-out;
+}
 
-  to {
-    transform: translateY(0);
-  }
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.v-enter-active .b-sheet__container,
+.v-leave-active .b-sheet__container {
+  transition: all 200ms ease-out;
+  transition-property: transform, opacity;
+}
+
+.v-enter-from .b-sheet__container,
+.v-leave-to .b-sheet__container {
+  opacity: 0;
+  transform: translateY(20%);
 }

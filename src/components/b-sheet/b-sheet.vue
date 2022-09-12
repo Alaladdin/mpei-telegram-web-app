@@ -1,12 +1,20 @@
 <template>
-    <div class="b-sheet">
-        <div class="b-sheet__title">
-            <span>{{ title }}</span>
-            <fa class="absolute right-10" icon="close" @click="closeSheet" />
+    <transition @after-leave="closed">
+        <div class="b-sheet">
+            <div class="b-sheet__overlay" @click="close" />
+            <div class="b-sheet__container">
+                <div class="b-sheet__title">
+                    <span class="truncate max-w-7/10">{{ title }}</span>
+                    <span class="b-sheet__close-btn click-area" @click="close">
+                        <fa icon="close" />
+                    </span>
+                </div>
+                <div class="b-sheet__body">
+                    <slot />
+                </div>
+            </div>
         </div>
-
-        <slot />
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -20,10 +28,13 @@ export default defineComponent({
             default: '',
         },
     },
-    emits  : ['close'],
+    emits  : ['close', 'closed'],
     methods: {
-        closeSheet() {
+        close() {
             this.$emit('close');
+        },
+        closed() {
+            this.$emit('closed');
         },
     },
 });

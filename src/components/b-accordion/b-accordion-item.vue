@@ -1,7 +1,7 @@
 <template>
     <div
         class="b-accordion__item b-accordion__item--parent"
-        :class="{ 'disabled' : !canToggleCaret }"
+        :class="{ 'disabled': item.disabled || !canToggleCaret }"
         @click="canToggleCaret && toggleCaret()"
     >
         <span>{{ item.name }} ({{ item.children.length }})</span>
@@ -13,6 +13,7 @@
             v-for="child in item.children"
             :key="child._id"
             class="b-accordion__item b-accordion__item--children"
+            :class="{ 'disabled': child.disabled }"
             @click="child.callback"
         >
             {{ child.name }}
