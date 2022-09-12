@@ -5,6 +5,13 @@
         </div>
 
         <b-accordion :items="formattedSections" />
+        <b-sheet
+            v-if="loadedActuality"
+            :title="loadedActuality.name"
+            @close="closeSheet"
+        >
+            {{ loadedActuality.data }}
+        </b-sheet>
     </div>
 </template>
 
@@ -14,16 +21,19 @@ import { map, omit } from 'lodash';
 import { mapActions, mapState } from 'pinia';
 import { defineComponent } from 'vue';
 import Accordion from '@/components/b-accordion';
+import Sheet from '@/components/b-sheet';
 import { useActualityStore } from '@/stores/actuality';
 
 export default defineComponent({
     name      : 'actuality-view',
     components: {
         'b-accordion': Accordion,
+        'b-sheet'    : Sheet,
     },
     data: () => ({
-        actualityStore: useActualityStore(),
-        isLoading     : false,
+        actualityStore : useActualityStore(),
+        loadedActuality: null,
+        isLoading      : false,
     }),
     computed: {
         ...mapState(useActualityStore, {
@@ -34,7 +44,10 @@ export default defineComponent({
         formattedSections() {
             return map(this.sections, (section) => ({
                 ...omit(section, ['actualities']),
-                children: section.actualities,
+                children: map(section.actualities, (actuality) => ({
+                    ...actuality,
+                    callback: this.openActualityItem.bind(this, actuality._id),
+                })),
             }));
         },
     },
@@ -42,7 +55,7 @@ export default defineComponent({
         this.init();
     },
     methods: {
-        ...mapActions(useActualityStore, ['init']),
+        ...mapActions(useActualityStore, ['init', 'loadActuality']),
 
         initPage() {
             this.isLoading = true;
@@ -54,6 +67,18 @@ export default defineComponent({
                 .finally(() => {
                     this.isLoading = false;
                 });
+        },
+        openActualityItem(actualityId) {
+            this.loadActuality(actualityId)
+                .then((actuality) => {
+                    this.loadedActuality = actuality;
+                })
+                .catch(() => {
+                  ElMessage({ message: 'Actuality load error', type: 'error' });
+                });
+        },
+        closeSheet() {
+            this.loadedActuality = null;
         },
     },
 });

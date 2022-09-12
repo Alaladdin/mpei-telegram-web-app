@@ -1,0 +1,20 @@
+.b-sheet {
+  @apply fixed left-0 right-0 bottom-0;
+  @apply px-10 py-8 rounded-t-6xl h-8/10 shadow-lg w-full bg-dark-600;
+  animation: sheetFadeIn 250ms forwards ease-in-out;
+  will-change: transform;
+
+  &__title {
+    @apply mb-10 text-center
+  }
+}
+
+@keyframes sheetFadeIn {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
