@@ -16,6 +16,15 @@
     @apply flex justify-center items-center py-2;
     @apply bg-pink-100 dark:bg-dark-600;
     @apply text-lg font-semibold select-none;
+
+    &-additional {
+      @apply absolute left-5 p-3 pb-13;
+      @apply flex items-center justify-between;
+      @apply rounded-t-2xl text-xs bg-pink-200 dark:bg-indigo-500;
+
+      bottom: calc(65% + 1.25rem);
+      width: calc(100% - 2.5rem);
+    }
   }
 
   &__close-btn {
@@ -35,21 +44,29 @@
 .v-enter-active,
 .v-leave-active {
   transition: opacity 200ms ease-out;
+
+  .b-sheet {
+    &__container,
+    &__title-additional {
+      transition: all 150ms ease-out;
+      transition-property: transform, opacity;
+    }
+
+    &__title-additional {
+      transition: all 100ms ease-out;
+    }
+  }
 }
 
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
-}
 
-.v-enter-active .b-sheet__container,
-.v-leave-active .b-sheet__container {
-  transition: all 200ms ease-out;
-  transition-property: transform, opacity;
-}
-
-.v-enter-from .b-sheet__container,
-.v-leave-to .b-sheet__container {
-  opacity: 0;
-  transform: translateY(20%);
+  .b-sheet {
+    &__container,
+    &__title-additional {
+      opacity: 0;
+      transform: translateY(20%);
+    }
+  }
 }

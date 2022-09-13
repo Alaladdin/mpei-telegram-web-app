@@ -12,6 +12,11 @@
             @close="closeSheet"
             @closed="clearActualityData"
         >
+            <template #additional-title>
+                <span>{{ actualityUpdatedByText }}</span>
+                <img v-if="actualityUserAvatarUrl" :src="actualityUserAvatarUrl">
+            </template>
+
             <template v-if="loadedActuality?.data">
                 {{ loadedActuality?.data }}
             </template>
@@ -25,6 +30,7 @@
 <script lang="ts">
 import { ElMessage } from 'element-plus/es';
 import { map, omit } from 'lodash';
+import moment from 'moment';
 import { mapActions, mapState } from 'pinia';
 import { defineComponent } from 'vue';
 import Accordion from '@/components/b-accordion';
@@ -59,6 +65,26 @@ export default defineComponent({
                     callback: this.openActualityItem.bind(this, actuality._id),
                 })),
             }));
+        },
+        actualityUpdatedByText() {
+            if (!this.loadedActuality) return '';
+
+            const { updatedBy, updatedAt } = this.loadedActuality;
+            const updater = updatedBy?.displayName || updatedBy?.username || 'DELETED';
+            const updatedAtDate = moment(updatedAt).format('HH:mm DD.MM');
+
+            return `Updated by ${updater} at ${updatedAtDate}`;
+        },
+        actualityUserAvatarUrl() {
+            const { updatedBy } = this.loadedActuality || {};
+
+            if (updatedBy) {
+                const url = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_80,c_fill,r_max,w_32,h_32/{IMAGE_ID}';
+
+                return url.replace('{IMAGE_ID}', updatedBy.avatar);
+            }
+
+            return '';
         },
     },
     created() {
