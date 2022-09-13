@@ -14,7 +14,12 @@
         >
             <template #additional-title>
                 <span>{{ actualityUpdatedByText }}</span>
-                <img v-if="actualityUserAvatarUrl" :src="actualityUserAvatarUrl">
+                <img
+                    v-if="actualityUserAvatarUrl"
+                    :src="actualityUserAvatarUrl"
+                    width="32"
+                    height="32"
+                >
             </template>
 
             <template v-if="loadedActuality?.data">
@@ -79,7 +84,7 @@ export default defineComponent({
             const { updatedBy } = this.loadedActuality || {};
 
             if (updatedBy) {
-                const url = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_80,c_fill,r_max,w_32,h_32/{IMAGE_ID}';
+                const url = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_100,c_fill,r_max,w_32,h_32/{IMAGE_ID}';
 
                 return url.replace('{IMAGE_ID}', updatedBy.avatar);
             }
