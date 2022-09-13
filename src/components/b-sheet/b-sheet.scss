@@ -1,9 +1,9 @@
 .b-sheet {
   &__container {
-    @apply absolute left-5 right-5 bottom-5;
+    @apply absolute left-3 right-3 bottom-3;
     @apply rounded-2xl max-h-7/10 h-full shadow bg-pink-50 dark:bg-dark-400;
     @apply overflow-hidden will-change-transform;
-    width: calc(100% - 2.5rem);
+    width: calc(100% - 1.5rem);
   }
 
   &__overlay {
@@ -18,12 +18,12 @@
     @apply text-lg font-semibold select-none;
 
     &-additional {
-      @apply absolute left-5 p-3 pb-13;
+      @apply absolute left-3 px-7 pt-3 pb-13;
       @apply flex items-center justify-between;
       @apply rounded-t-2xl text-xs bg-pink-200 dark:bg-indigo-500;
 
-      bottom: calc(70% - 1.25rem);
-      width: calc(100% - 2.5rem);
+      bottom: calc(70% - 2rem);
+      width: calc(100% - 1.5rem);
     }
   }
 
@@ -32,8 +32,8 @@
   }
 
   &__body {
-    @apply px-10 pt-5 pb-5 overflow-auto;
-    height: calc(100% - 2.5rem);
+    @apply px-7 pt-5 pb-5 text-sm overflow-auto;
+    height: calc(100% - 1.5rem);
   }
 
   &__no-data {

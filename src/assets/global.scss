@@ -12,6 +12,19 @@ html, body {
 
 main {
   height: calc(100% - 56px);
+
+  a {
+    @apply text-pink-400 dark:text-indigo-400;
+  }
+}
+
+pre {
+  @apply rounded-md bg-pink-100 dark:bg-dark-700;
+  padding: 15px 20px;
+}
+
+code {
+  white-space: pre-line;
 }
 
 .click-area {

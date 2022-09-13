@@ -4,27 +4,25 @@
             ACTUALITY
         </div>
 
-        <b-accordion :items="formattedSections" />
+        <b-accordion :items="actualitySections" />
 
         <b-sheet
             v-show="showActualitySheet"
-            :title="loadedActuality?.name"
+            :title="loadedActuality.name"
             @close="closeSheet"
             @closed="clearActualityData"
         >
             <template #additional-title>
-                <span>{{ actualityUpdatedByText }}</span>
+                <span>{{ loadedActuality.updatedText }}</span>
                 <img
-                    v-if="actualityUserAvatarUrl"
-                    :src="actualityUserAvatarUrl"
+                    v-if="loadedActuality.avatar"
+                    :src="loadedActuality.avatar"
                     width="32"
                     height="32"
                 >
             </template>
 
-            <template v-if="loadedActuality?.data">
-                {{ loadedActuality?.data }}
-            </template>
+            <civ v-if="loadedActuality?.data" v-html="loadedActuality?.data" />
             <span v-if="!loadedActuality?.data" class="b-sheet__no-data">
                 NO DATA :(
             </span>
@@ -35,12 +33,16 @@
 <script lang="ts">
 import { ElMessage } from 'element-plus/es';
 import { map, omit } from 'lodash';
+import { marked } from 'marked';
 import moment from 'moment';
 import { mapActions, mapState } from 'pinia';
 import { defineComponent } from 'vue';
 import Accordion from '@/components/b-accordion';
 import Sheet from '@/components/b-sheet';
 import { useActualityStore } from '@/stores/actuality';
+import type { IActuality } from '@/types/Actuality.interface';
+
+const USER_AVATAR_URL = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_100,c_fill,r_max,w_32,h_32/{IMAGE_ID}';
 
 export default defineComponent({
     name      : 'actuality-view',
@@ -50,7 +52,7 @@ export default defineComponent({
     },
     data: () => ({
         actualityStore    : useActualityStore(),
-        loadedActuality   : null,
+        loadedActuality   : {} as IActuality,
         showActualitySheet: false,
         isActualityLoading: false,
         isLoading         : false,
@@ -61,7 +63,7 @@ export default defineComponent({
             actuality: 'getActuality',
         }),
 
-        formattedSections() {
+        actualitySections() {
             return map(this.sections, (section) => ({
                 ...omit(section, ['actualities']),
                 children: map(section.actualities, (actuality) => ({
@@ -70,26 +72,6 @@ export default defineComponent({
                     callback: this.openActualityItem.bind(this, actuality._id),
                 })),
             }));
-        },
-        actualityUpdatedByText() {
-            if (!this.loadedActuality) return '';
-
-            const { updatedBy, updatedAt } = this.loadedActuality;
-            const updater = updatedBy?.displayName || updatedBy?.username || 'DELETED';
-            const updatedAtDate = moment(updatedAt).format('HH:mm DD.MM');
-
-            return `Updated by ${updater} at ${updatedAtDate}`;
-        },
-        actualityUserAvatarUrl() {
-            const { updatedBy } = this.loadedActuality || {};
-
-            if (updatedBy) {
-                const url = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_100,c_fill,r_max,w_32,h_32/{IMAGE_ID}';
-
-                return url.replace('{IMAGE_ID}', updatedBy.avatar);
-            }
-
-            return '';
         },
     },
     created() {
@@ -114,7 +96,7 @@ export default defineComponent({
 
             this.loadActuality(actualityId)
                 .then((actuality) => {
-                    this.loadedActuality = actuality;
+                    this.loadedActuality = this.prepareActuality(actuality);
                     this.showActualitySheet = true;
                 })
                 .catch(() => {
@@ -124,11 +106,23 @@ export default defineComponent({
                     this.isActualityLoading = false;
                 });
         },
+        prepareActuality(actuality: IActuality) {
+            const { data, updatedBy, updatedAt } = actuality;
+            const updatedAtDate = moment(updatedAt).format('HH:mm DD.MM');
+            const updater = updatedBy?.displayName || updatedBy?.username || 'DELETED';
+
+            return {
+                ...actuality,
+                data       : data && marked.parse(data),
+                avatar     : updatedBy?.avatar && USER_AVATAR_URL.replace('{IMAGE_ID}', updatedBy.avatar),
+                updatedText: `Updated by ${updater} at ${updatedAtDate}`,
+            };
+        },
         closeSheet() {
             this.showActualitySheet = false;
         },
         clearActualityData() {
-            this.loadedActuality = null;
+            this.loadedActuality = {};
         },
     },
 });
