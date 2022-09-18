@@ -14,6 +14,11 @@ const router = createRouter({
             component: () => import('@/views/ActualityView'),
         },
         {
+            path     : '/login',
+            name     : 'login',
+            component: () => import('@/views/AuthView'),
+        },
+        {
             path     : '/:pathMatch(.*)*',
             name     : '404',
             component: () => import('@/views/NotFoundView'),

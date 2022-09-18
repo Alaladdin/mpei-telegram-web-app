@@ -23,13 +23,26 @@
 
 <script lang="ts">
 import reject from 'lodash/reject';
+import { mapState } from 'pinia';
 import { defineComponent } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 import router from '../router';
 
 export default defineComponent({
-    name: 'home-view',
-    data: () => ({
-        routes: reject(router.getRoutes(), { name: '404' }),
-    }),
+    name    : 'home-view',
+    computed: {
+        ...mapState(useAuthStore, {
+            currentUser: 'getUser',
+        }),
+
+        routes() {
+            const { loggedIn } = this.currentUser;
+            const routeNames = ['404'];
+
+            if (loggedIn) routeNames.push('login');
+
+            return reject(router.getRoutes(), (route) => routeNames.includes(route.name));
+        },
+    },
 });
 </script>

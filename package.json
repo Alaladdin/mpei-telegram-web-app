@@ -1,6 +1,6 @@
 {
   "name": "telegram-web-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "build": "run-p type-check build-only",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
