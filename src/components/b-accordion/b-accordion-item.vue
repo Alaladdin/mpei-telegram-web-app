@@ -16,8 +16,13 @@
             :class="{ 'disabled': child.disabled }"
             @click="child.callback"
         >
-            {{ child.name }}
-            <fa v-if="editable" class="text-xs" icon="pencil" />
+            <span>{{ child.name }}</span>
+            <fa
+                v-if="editable"
+                class="text-xs"
+                icon="pencil"
+                @click.stop="editClicked"
+            />
         </div>
     </template>
 </template>

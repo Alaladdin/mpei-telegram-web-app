@@ -95,7 +95,7 @@ export default defineComponent({
                 });
         },
         editActuality(e) {
-
+            console.log(e);
         },
         openActualityItem(actualityId: string) {
             this.isActualityLoading = true;
