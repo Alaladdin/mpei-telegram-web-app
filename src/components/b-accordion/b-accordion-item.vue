@@ -17,6 +17,7 @@
             @click="child.callback"
         >
             {{ child.name }}
+            <fa v-if="editable" class="text-xs" icon="pencil" />
         </div>
     </template>
 </template>
@@ -35,8 +36,13 @@ export default defineComponent({
             type   : Object,
             default: () => ({}),
         },
+        editable: {
+            type   : Boolean,
+            default: false,
+        },
     },
-    data: () => ({
+    emits: ['edit-clicked'],
+    data : () => ({
         isOpened: false,
     }),
     computed: {
@@ -47,6 +53,9 @@ export default defineComponent({
     methods: {
         toggleCaret() {
             this.isOpened = !this.isOpened;
+        },
+        editClicked() {
+            this.$emit('edit-clicked', this.item);
         },
     },
 });

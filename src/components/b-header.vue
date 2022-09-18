@@ -8,7 +8,7 @@
 
         <div class="flex justify-center align-center space-x-2">
             <b-theme-toggler />
-            <el-avatar v-if="currentUserAvatarUrl" :size="32" :src="currentUserAvatarUrl" />
+            <el-avatar v-if="currentUserAvatarUrl" :src="currentUserAvatarUrl" :size="32" />
         </div>
     </el-header>
 </template>
@@ -20,7 +20,7 @@ import MenuToggler from '@/components/b-menu-toggler.vue';
 import ThemeToggler from '@/components/b-theme-toggler.vue';
 import { useAuthStore } from '@/stores/auth';
 
-const USER_AVATAR_URL = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_100,c_fill,r_max,w_32,h_32/{IMAGE_ID}';
+const USER_AVATAR_URL = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_100,c_fill,r_max,w_100,h_100/{IMAGE_ID}';
 
 export default defineComponent({
     name      : 'b-header',

@@ -4,6 +4,8 @@
             v-for="item in items"
             :key="item._id"
             :item="item"
+            :editable="editable"
+            @edit-clicked="editClicked"
         />
     </div>
 </template>
@@ -21,6 +23,16 @@ export default defineComponent({
         items: {
             type   : Object,
             default: () => ({}),
+        },
+        editable: {
+            type   : Boolean,
+            default: false,
+        },
+    },
+    emits  : ['edit-clicked'],
+    methods: {
+        editClicked(e) {
+            this.$emit('edit-clicked', e);
         },
     },
 });

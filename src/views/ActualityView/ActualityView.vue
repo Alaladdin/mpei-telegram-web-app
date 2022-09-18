@@ -4,7 +4,11 @@
             ACTUALITY
         </div>
 
-        <b-accordion :items="actualitySections" />
+        <b-accordion
+            :items="actualitySections"
+            :editable="currentUser.isAdmin"
+            @edit-clicked="editActuality"
+        />
 
         <b-sheet
             v-show="showActualitySheet"
@@ -14,15 +18,10 @@
         >
             <template #additional-title>
                 <span>{{ loadedActuality.updatedText }}</span>
-                <img
-                    v-if="loadedActuality.avatar"
-                    :src="loadedActuality.avatar"
-                    width="32"
-                    height="32"
-                >
+                <el-avatar v-if="loadedActuality.avatar" :src="loadedActuality.avatar" :size="32" />
             </template>
 
-            <civ v-if="loadedActuality?.data" v-html="loadedActuality?.data" />
+            <div v-if="loadedActuality?.data" v-html="loadedActuality?.data" />
             <span v-if="!loadedActuality?.data" class="b-sheet__no-data">
                 NO DATA :(
             </span>
@@ -40,9 +39,10 @@ import { defineComponent } from 'vue';
 import Accordion from '@/components/b-accordion';
 import Sheet from '@/components/b-sheet';
 import { useActualityStore } from '@/stores/actuality';
+import { useAuthStore } from '@/stores/auth';
 import type { IActuality } from '@/types/Actuality.interface';
 
-const USER_AVATAR_URL = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_100,c_fill,r_max,w_32,h_32/{IMAGE_ID}';
+const USER_AVATAR_URL = 'https://res.cloudinary.com/agrabah/image/upload/f_webp,q_100,c_fill,r_max,w_100,h_100/{IMAGE_ID}';
 
 export default defineComponent({
     name      : 'actuality-view',
@@ -58,6 +58,9 @@ export default defineComponent({
         isLoading         : false,
     }),
     computed: {
+        ...mapState(useAuthStore, {
+            currentUser: 'getUser',
+        }),
         ...mapState(useActualityStore, {
             sections : 'getSections',
             actuality: 'getActuality',
@@ -90,6 +93,9 @@ export default defineComponent({
                 .finally(() => {
                     this.isLoading = false;
                 });
+        },
+        editActuality(e) {
+
         },
         openActualityItem(actualityId: string) {
             this.isActualityLoading = true;
