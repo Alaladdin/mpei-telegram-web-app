@@ -23,7 +23,7 @@
             />
 
             <template #footer>
-                <div class="fixed bottom-10 flex flex-col space-y-5 w-9/10">
+                <div class="flex flex-col space-y-5">
                     <div class="flex justify-between items-center">
                         <span>{{ loadedActuality.updatedText }}</span>
                         <el-avatar
