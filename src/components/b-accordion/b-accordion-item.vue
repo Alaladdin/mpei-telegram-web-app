@@ -21,7 +21,7 @@
                 v-if="editable"
                 class="text-xs"
                 icon="pencil"
-                @click.stop="editClicked"
+                @click.stop="editClicked(child)"
             />
         </div>
     </template>
@@ -59,8 +59,8 @@ export default defineComponent({
         toggleCaret() {
             this.isOpened = !this.isOpened;
         },
-        editClicked() {
-            this.$emit('edit-clicked', this.item);
+        editClicked(item) {
+            this.$emit('edit-clicked', item);
         },
     },
 });

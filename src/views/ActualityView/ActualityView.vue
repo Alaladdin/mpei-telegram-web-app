@@ -10,6 +10,36 @@
             @edit-clicked="editActuality"
         />
 
+        <el-dialog
+            v-if="currentUser.isAdmin"
+            v-model="showEditActualityModal"
+            :title="loadedActuality?.name"
+            fullscreen
+        >
+            <el-input
+                v-model="loadedActuality.data"
+                :autosize="{ minRows: 20, maxRows: 25 }"
+                type="textarea"
+            />
+
+            <template #footer>
+                <div class="fixed bottom-10 flex flex-col space-y-5 w-9/10">
+                    <div class="flex justify-between items-center">
+                        <span>{{ loadedActuality.updatedText }}</span>
+                        <el-avatar
+                            v-if="loadedActuality.avatar"
+                            :src="loadedActuality.avatar"
+                            :size="32"
+                        />
+                    </div>
+
+                    <el-button @click="setActualityItem">
+                        Update
+                    </el-button>
+                </div>
+            </template>
+        </el-dialog>
+
         <b-sheet
             v-show="showActualitySheet"
             :title="loadedActuality.name"
@@ -21,8 +51,8 @@
                 <el-avatar v-if="loadedActuality.avatar" :src="loadedActuality.avatar" :size="32" />
             </template>
 
-            <div v-if="loadedActuality?.data" v-html="loadedActuality?.data" />
-            <span v-if="!loadedActuality?.data" class="b-sheet__no-data">
+            <div v-if="loadedActuality?.formattedData" v-html="loadedActuality?.formattedData" />
+            <span v-if="!loadedActuality?.formattedData" class="b-sheet__no-data">
                 NO DATA :(
             </span>
         </b-sheet>
@@ -51,11 +81,12 @@ export default defineComponent({
         'b-sheet'    : Sheet,
     },
     data: () => ({
-        actualityStore    : useActualityStore(),
-        loadedActuality   : {} as IActuality,
-        showActualitySheet: false,
-        isActualityLoading: false,
-        isLoading         : false,
+        actualityStore        : useActualityStore(),
+        loadedActuality       : {} as IActuality,
+        showActualitySheet    : false,
+        showEditActualityModal: false,
+        isActualityLoading    : false,
+        isLoading             : false,
     }),
     computed: {
         ...mapState(useAuthStore, {
@@ -81,7 +112,7 @@ export default defineComponent({
         this.init();
     },
     methods: {
-        ...mapActions(useActualityStore, ['init', 'loadActuality']),
+        ...mapActions(useActualityStore, ['init', 'loadActuality', 'setActuality']),
 
         initPage() {
             this.isLoading = true;
@@ -94,19 +125,37 @@ export default defineComponent({
                     this.isLoading = false;
                 });
         },
-        editActuality(e) {
-            console.log(e);
+        editActuality(actuality: IActuality) {
+            this.loadActualityItem(actuality._id)
+                .then(() => {
+                    this.showEditActualityModal = true;
+                })
+                .catch(() => {});
+        },
+        setActualityItem() {
+            this.setActuality(this.loadedActuality)
+                .then(() => {
+                    this.showEditActualityModal = false;
+                })
+                .catch((err) => {
+                    ElMessage({ message: 'Actuality update error', type: 'error' });
+                });
         },
         openActualityItem(actualityId: string) {
-            this.isActualityLoading = true;
-
-            this.loadActuality(actualityId)
-                .then((actuality) => {
-                    this.loadedActuality = this.prepareActuality(actuality);
+            this.loadActualityItem(actualityId)
+                .then(() => {
                     this.showActualitySheet = true;
                 })
-                .catch(() => {
+                .catch(() => {});
+        },
+        loadActualityItem(actualityId: string) {
+            return this.loadActuality(actualityId)
+                .then((actuality) => {
+                    this.loadedActuality = this.prepareActuality(actuality);
+                })
+                .catch((err) => {
                     ElMessage({ message: 'Actuality load error', type: 'error' });
+                    throw err;
                 })
                 .finally(() => {
                     this.isActualityLoading = false;
@@ -114,14 +163,14 @@ export default defineComponent({
         },
         prepareActuality(actuality: IActuality) {
             const { data, updatedBy, updatedAt } = actuality;
-            const updatedAtDate = moment(updatedAt).format('HH:mm DD.MM');
+            const updatedAtDate = moment(updatedAt).format('DD.MM');
             const updater = updatedBy?.displayName || updatedBy?.username || 'DELETED';
 
             return {
                 ...actuality,
-                data       : data && marked.parse(data),
-                avatar     : updatedBy?.avatar && USER_AVATAR_URL.replace('{IMAGE_ID}', updatedBy.avatar),
-                updatedText: `Updated by ${updater} at ${updatedAtDate}`,
+                formattedData: data && marked.parse(data),
+                avatar       : updatedBy?.avatar && USER_AVATAR_URL.replace('{IMAGE_ID}', updatedBy.avatar),
+                updatedText  : `Updated by ${updater} at ${updatedAtDate}`,
             };
         },
         closeSheet() {
